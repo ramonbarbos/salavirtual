@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom'; // Importe o hook useParams
-import { Box, Button, Typography, AppBar, Menu, MenuItem  } from '@mui/material';
+import { Box, Button, Typography, AppBar, Menu, MenuItem,Backdrop,CircularProgress  } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AppsIcon from '@mui/icons-material/Apps';
 import { useNavigate } from 'react-router-dom';
@@ -13,10 +13,18 @@ import DialogTitle from '@mui/material/DialogTitle';
 function Sala() {
   const navigate = useNavigate();
   const [row, setRows] = useState('');
-  const [openDialog, setOpenDialog] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+
   const { id } = useParams();
+
+  //PROGESSO
+  const [openProgress, setOpenProgress] = React.useState(false);
+  const handleCloseProgress = () => {
+    setOpenProgress(false);
+  };
+  const handleOpenProgress = () => {
+    setOpenProgress(true);
+  };
+  //MENU
 
     const handleClickMenu = (event) => {
       setAnchorEl(event.currentTarget);
@@ -24,35 +32,49 @@ function Sala() {
     const handleCloseMenu = () => {
       setAnchorEl(null);
     };
-  const handleClickOpenDialogDelete =  () => {
-    setOpenDialog(true);
-    handleCloseMenu()
 
-  };
-  const handleCloseDialogDelete = () => {
-    setOpenDialog(false);
-  };
+    //DIALOGO
+      const [openDialog, setOpenDialog] = React.useState(false);
+      const [anchorEl, setAnchorEl] = React.useState(null);
+      const open = Boolean(anchorEl);
 
+      const handleClickOpenDialogDelete =  () => {
+      
+        handleCloseMenu()
+        handleOpenProgress();
+          setTimeout(() => {
+            setOpenDialog(true);
+            handleCloseProgress()
+          }, 1000)
+      };
+      const handleCloseDialogDelete = () => {
+        setOpenDialog(false);
+      };
 
-  const handleClickDelete =  async () => {
-   
-    try {
-      const response = await fetch(`http://10.0.0.120/apiSala/salas/deletar/${id}`, {
-      method: 'DELETE', // Use o método DELETE
-    });
-      const responseData = await response.json();
+      const handleClickDelete =  async () => {
+      
+        try {
+          const response = await fetch(`http://10.0.0.120/apiSala/salas/deletar/${id}`, {
+          method: 'DELETE', // Use o método DELETE
+        });
+          const responseData = await response.json();
 
-      if (responseData.tipo === 'sucesso') {
-     
-        console.log('Sala Excluida')
-         navigate('/lobby'); 
-      } else {
-        console.log('Nenhum registro');
+          if (responseData.tipo === 'sucesso') {
+        
+            console.log('Sala Excluida')
+            handleCloseDialogDelete();
+            handleOpenProgress();
+            setTimeout(() => {
+              navigate('/lobby'); 
+              handleCloseProgress()
+              }, 1000)
+          } else {
+            console.log('Nenhum registro');
+          }
+        } catch (error) {
+          console.error(error);
+        }
       }
-    } catch (error) {
-      console.error(error);
-    }
-  }
  
 
     const fetchSalas = async () => {
@@ -87,7 +109,11 @@ function Sala() {
           <Button
           variant="contained"
             onClick={() => {
+              handleOpenProgress();
+              setTimeout(() => {
               navigate(`/lobby`);
+              handleCloseProgress()
+              }, 250)
             }}
             startIcon={<ArrowBackIcon />} 
             sx={{ marginBottom: '10px' }}
@@ -148,7 +174,13 @@ function Sala() {
       </AppBar>
 
        
-      
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={openProgress}
+        onClick={handleCloseProgress}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   );
 }

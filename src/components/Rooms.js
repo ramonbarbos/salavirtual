@@ -4,7 +4,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import { Box, Button, Typography, Card, AppBar } from '@mui/material';
+import { Box, Button, Typography, Card, AppBar,  Backdrop,CircularProgress  } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
@@ -13,8 +13,22 @@ function Rooms() {
   const [rows, setRows] = useState([]);
   const navigate = useNavigate();
 
+  //PROGESSO
+  const [openProgress, setOpenProgress] = React.useState(false);
+  const handleCloseProgress = () => {
+    setOpenProgress(false);
+  };
+  const handleOpenProgress = () => {
+    setOpenProgress(true);
+  };
+
   const handleSala = (id) => {
-    navigate(`/sala/${id}`);
+    handleOpenProgress();
+                setTimeout(() => {
+                navigate(`/sala/${id}`);
+                handleCloseProgress()
+                }, 250)
+ 
   };
 
   const fetchSalas = async () => {
@@ -49,7 +63,12 @@ function Rooms() {
           <Button
           variant="contained"
             onClick={() => {
-              navigate(`/`);
+              handleOpenProgress();
+                setTimeout(() => {
+                navigate(`/`);
+                handleCloseProgress()
+                }, 250)
+             
             }}
             startIcon={<ArrowBackIcon />} // Use o ícone corretamente aqui
             sx={{ marginBottom: '10px' }}
@@ -94,6 +113,14 @@ function Rooms() {
           ))}
         </Box>
       </Box>
+
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={openProgress}
+        onClick={handleCloseProgress}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   );
 }

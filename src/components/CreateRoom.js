@@ -4,7 +4,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import { Box, Button, TextField, Typography, Card, Alert } from '@mui/material';
+import { Box, Button, TextField, Typography, Card, Alert, Backdrop,CircularProgress  } from '@mui/material';
 
 function CreateRoom() {
   const navigate = useNavigate();
@@ -18,13 +18,26 @@ function CreateRoom() {
   const [alertMessage, setAlertMessage] = useState('');
   const [alertSeverity, setAlertSeverity] = useState('');
 
+    //PROGESSO
+    const [openProgress, setOpenProgress] = React.useState(false);
+    const handleCloseProgress = () => {
+      setOpenProgress(false);
+    };
+    const handleOpenProgress = () => {
+      setOpenProgress(true);
+    };
+
   const handleAlertClose = () => {
     setAlertOpen(false);
   };
 
   const handleSalas = () => {
     console.log('Botão de Salas clicado'); // Adicione esta linha
-    navigate('/lobby'); // Redireciona para a página Salas
+    handleOpenProgress()
+    setTimeout(() => {
+      navigate('/lobby'); 
+      handleCloseProgress()
+      }, 250)
   };
 
   const handleInputChange = (e) => {
@@ -61,9 +74,12 @@ function CreateRoom() {
       const data = await response.json();
 
       if (data.tipo === 'sucesso') {
-        console.log('Sala cadastrada com sucesso');
-        console.log(data.resposta.id_inserido);
-        navigate(`/sala/${data.resposta.id_inserido}`);
+        handleOpenProgress()
+        setTimeout(() => {
+           navigate(`/sala/${data.resposta.id_inserido}`);
+
+          handleCloseProgress()
+        }, 1000)
       } else {
         setAlertMessage('Já existente!');
         setAlertSeverity('info');
@@ -71,8 +87,8 @@ function CreateRoom() {
       }
     } catch (error) {
       console.log('Erro ao cadastrar a sala', error);
-      setAlertMessage('Não foi possivel criar!');
-      setAlertSeverity('error');
+      setAlertMessage('Tente outro nome!');
+      setAlertSeverity('info');
       setAlertOpen(true);
     }
   };
@@ -124,6 +140,15 @@ function CreateRoom() {
           Criar Existentes
         </Button >
       </Card>
+
+
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={openProgress}
+        onClick={handleCloseProgress}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Box>
   );
 }
