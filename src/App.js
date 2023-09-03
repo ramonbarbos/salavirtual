@@ -2,9 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 
-import CreateRoom from './components/CreateRoom';
-import Rooms from './components/Rooms';
-import Sala from './components/Sala';
+import CreateRoom from './view/CreateRoom';
+import Rooms from './view/Rooms';
+import Sala from './view/Sala';
 
 function App() {
   return (

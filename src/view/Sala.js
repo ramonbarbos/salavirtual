@@ -10,11 +10,27 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+import ModalEditarNome from '../components/ModalEditarNome';
+
 function Sala() {
   const navigate = useNavigate();
   const [row, setRows] = useState('');
 
   const { id } = useParams();
+
+    // MODAL EDITAR
+    const [openModalEditarNome, setOpenModalEditarNome] = React.useState(false);
+
+    const handleOpenModalEditarNome = () => {
+      setOpenModalEditarNome(true);
+      handleCloseMenu()
+    };
+  
+    const handleCloseModalEditarNome = () => {
+      setOpenModalEditarNome(false);
+    };
+
+  
 
   //PROGESSO
   const [openProgress, setOpenProgress] = React.useState(false);
@@ -146,7 +162,7 @@ function Sala() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleCloseMenu}>Editar Nome</MenuItem>
+        <MenuItem onClick={handleOpenModalEditarNome}>Editar Nome</MenuItem>
         <MenuItem onClick={handleClickOpenDialogDelete}>Excluir Sala</MenuItem>
         <MenuItem onClick={handleCloseMenu}>Modo Offline</MenuItem>
       </Menu>
@@ -172,8 +188,8 @@ function Sala() {
       </Dialog>
 
       </AppBar>
+      <ModalEditarNome open={openModalEditarNome} onClose={handleCloseModalEditarNome} id={id}/>
 
-       
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={openProgress}

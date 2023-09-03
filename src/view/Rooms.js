@@ -24,10 +24,10 @@ function Rooms() {
 
   const handleSala = (id) => {
     handleOpenProgress();
-                setTimeout(() => {
-                navigate(`/sala/${id}`);
-                handleCloseProgress()
-                }, 250)
+    setTimeout(() => {
+      navigate(`/sala/${id}`);
+      handleCloseProgress()
+      }, 250)
  
   };
 
