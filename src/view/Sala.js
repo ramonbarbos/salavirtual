@@ -11,6 +11,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import ModalEditarNome from '../components/ModalEditarNome';
+import YouTubePlayer from '../components/YouTubePlayer'; 
 
 function Sala() {
   const navigate = useNavigate();
@@ -197,6 +198,7 @@ function Sala() {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
+      <YouTubePlayer id={id} />
     </div>
   );
 }
