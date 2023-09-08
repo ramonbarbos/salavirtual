@@ -14,9 +14,30 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/home" element={<ProtectedRoute element={<CreateRoom />} />} />
-          <Route path="/lobby" element={<ProtectedRoute element={<Rooms />} />} />
-          <Route path="/sala/:id" element={<ProtectedRoute element={<Sala />} />} />
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <CreateRoom />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/lobby"
+            element={
+              <ProtectedRoute>
+                <Rooms />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/sala/:id"
+            element={
+              <ProtectedRoute>
+                <Sala />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </AuthProvider>
     </Router>
