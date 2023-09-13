@@ -7,6 +7,7 @@ import Sala from './view/Sala';
 import Login from './view/Login';
 import { AuthProvider } from './control/auth';
 import ProtectedRoute from './control/ProtectedRoute';
+import Usuarios from './view/Usuarios';
 
 function App() {
   return (
@@ -35,6 +36,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Sala />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/usuarios"
+            element={
+              <ProtectedRoute>
+                <Usuarios />
               </ProtectedRoute>
             }
           />

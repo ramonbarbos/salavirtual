@@ -73,7 +73,11 @@ function CreateRoom() {
       const handleLogout =  () => {
         logout();
       }
-
+      //ACAO USUARIO
+      const handleUsuario =  () => {
+        handleCloseMenu()
+        navigate('/usuarios'); 
+      }
       
 
   const handleSalas = () => {
@@ -165,6 +169,7 @@ function CreateRoom() {
         }}
       >
         <MenuItem onClick={handleCloseMenu}>Perfil</MenuItem>
+        <MenuItem onClick={handleUsuario}>Usuarios</MenuItem>
         <MenuItem onClick={handleClickOpenDialogDelete}>Sair</MenuItem>
       </Menu>
 
