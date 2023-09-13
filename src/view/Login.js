@@ -46,7 +46,7 @@ function Login() {
             const id = data.resposta.logado;
     
             logar(id, user, pass);
-            navigate('/home'); // Redireciona para a página Home
+            navigate('/'); // Redireciona para a página Home
           } else {
             setAlertMessage('Login inválido. Verifique suas credenciais.');
             setAlertSeverity('warning');

@@ -13,14 +13,14 @@ function App() {
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} index  />
           <Route
-            path="/home"
+            path="/"
             element={
               <ProtectedRoute>
                 <CreateRoom />
               </ProtectedRoute>
-            }
+            } 
           />
           <Route
             path="/lobby"

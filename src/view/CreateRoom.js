@@ -175,11 +175,11 @@ function CreateRoom() {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Exclusão de Sala"}
+          {"Sair da Conta"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Voce está preste a excluir a sala virtual . Tem certeza dessa descisão?
+            Voce está preste a sair da sala virtual. Tem certeza dessa descisão?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

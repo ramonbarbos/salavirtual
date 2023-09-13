@@ -65,7 +65,7 @@ function Rooms() {
             onClick={() => {
               handleOpenProgress();
                 setTimeout(() => {
-                navigate(`/home`);
+                navigate(`/`);
                 handleCloseProgress()
                 }, 250)
              

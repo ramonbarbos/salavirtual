@@ -49,7 +49,7 @@ function AuthProvider({ children }) {
     setUser({});
     localStorage.removeItem('user');
     localStorage.removeItem('avatar');
-    navigate('/');
+    navigate('/login');
   }
 
   return (
